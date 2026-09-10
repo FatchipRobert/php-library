@@ -83,6 +83,9 @@ class Head extends AbstractModel
             'mandatory' => true,
             'instanceOf' => 'Head\\Meta',
         ],
+        'AttestationToken' => [
+            'mandatory' => false,
+        ],
     ];
 
     /**

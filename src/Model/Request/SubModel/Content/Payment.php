@@ -49,6 +49,11 @@ class Payment extends AbstractModel
             'isAttribute' => true,
             'uppercase' => true,
         ],
+        'Currency' => [
+            'mandatoryByRule' => false,
+            'isAttribute' => true,
+            'uppercase' => true,
+        ],
         'Amount' => [
             'mandatory' => true,
         ],

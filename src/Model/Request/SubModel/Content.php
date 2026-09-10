@@ -75,5 +75,9 @@ class Content extends AbstractModel
             'mandatory' => false,
             'instanceOf' => 'Content\\Additional',
         ],
+        'Secci' => [
+            'mandatory' => false,
+            'instanceOf' => 'Content\\Secci',
+        ],
     ];
 }
