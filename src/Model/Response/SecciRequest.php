@@ -17,11 +17,11 @@ class SecciRequest extends AbstractResponse
     public function validateResponse()
     {
         if ($this->getStatusCode() == 'OK' && $this->getResultCode() == 504) {
-            $this->setResult(['attestationToken' => (string)$this->getResponse()->content->{'secci-result'}->{'attestation-token'}]);
-            $this->setResult(['documentId' => (string)$this->getResponse()->content->{'secci-result'}->{'document-id'}]);
+            $this->setResult(['attestationToken' => (string) $this->getResponse()->content->{'secci-result'}->{'attestation-token'}]);
+            $this->setResult(['documentId' => (string) $this->getResponse()->content->{'secci-result'}->{'document-id'}]);
             if (isset($this->getResponse()->content->{'secci-result'}->{'document'})) {
-                $this->setResult(['document' => (string)$this->getResponse()->content->{'secci-result'}->{'document'}]);
-                $this->setResult(['contentType' => (string)$this->getResponse()->content->{'secci-result'}->{'content-type'}]);
+                $this->setResult(['document' => (string) $this->getResponse()->content->{'secci-result'}->{'document'}]);
+                $this->setResult(['contentType' => (string) $this->getResponse()->content->{'secci-result'}->{'content-type'}]);
             }
             $this->setSuccessful();
         }
