@@ -45,8 +45,7 @@ class Secci extends AbstractModel
             'mandatory' => false,
         ],
     ];
-
-
+    
     /**
      * @param string $paymentMethod
      *
