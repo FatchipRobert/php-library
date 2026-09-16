@@ -33,25 +33,44 @@ class Secci extends AbstractModel
      * @var array
      */
     public $admittedFields = [
-        'PaymentMethod' => [
-            'mandatory' => true,
-        ],
         'DeliveryMethod' => [
             'mandatory' => true,
+            'uppercase' => true,
         ],
         'Email' => [
-            'mandatory' => false,
+            'mandatoryByRule' => true,
         ],
         'Action' => [
             'mandatory' => false,
+            'uppercase' => true,
         ],
         'Language' => [
             'mandatory' => false,
+            'uppercase' => true,
         ],
-        'Country' => [
+        'CountryCode' => [
             'mandatory' => false,
+            'uppercase' => true,
         ],
     ];
+
+    /**
+     * Installment details rule : if payment method is installment, InstallmentDetails are mandatory.
+     *
+     * @return bool
+     */
+    protected function rule()
+    {
+        if ('EMAIL' == $this->admittedFields['DeliveryMethod']['value'] &&
+            (!key_exists('value', $this->admittedFields['Email']))
+        ) {
+            $this->setErrorMsg('email details missing');
+
+            return false;
+        }
+
+        return true;
+    }
 
     /**
      * @param string $paymentMethod

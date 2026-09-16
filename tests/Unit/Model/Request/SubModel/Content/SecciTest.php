@@ -10,6 +10,7 @@ namespace RatePAY\Tests\Unit\Model\Request\SubModel\Content;
 
 use PHPUnit\Framework\TestCase;
 use RatePAY\Exception\ModelException;
+use RatePAY\Exception\RuleSetException;
 use RatePAY\Model\Request\SubModel\Content\Secci;
 use RatePAY\ModelBuilder;
 
@@ -18,14 +19,12 @@ class SecciTest extends TestCase
     public function testToArrayWithMandatoryFields()
     {
         $secci = (new Secci())
-            ->setPaymentMethod('INSTALLMENT')
-            ->setDeliveryMethod('EMAIL');
+            ->setDeliveryMethod('PDF');
 
         $array = $secci->toArray();
 
         $expected = [
-            'payment-method' => ['value' => 'INSTALLMENT'],
-            'delivery-method' => ['value' => 'EMAIL'],
+            'delivery-method' => ['value' => 'PDF'],
         ];
 
         $this->assertEquals($expected, $array);
@@ -34,22 +33,20 @@ class SecciTest extends TestCase
     public function testToArrayWithAllFields()
     {
         $secci = (new Secci())
-            ->setPaymentMethod('INSTALLMENT')
             ->setDeliveryMethod('EMAIL')
             ->setEmail('test@example.com')
             ->setAction('REQUEST')
             ->setLanguage('DE')
-            ->setCountry('DE');
+            ->setCountryCode('DE');
 
         $array = $secci->toArray();
 
         $expected = [
-            'payment-method' => ['value' => 'INSTALLMENT'],
             'delivery-method' => ['value' => 'EMAIL'],
             'email' => ['value' => 'test@example.com'],
             'action' => ['value' => 'REQUEST'],
             'language' => ['value' => 'DE'],
-            'country' => ['value' => 'DE'],
+            'country-code' => ['value' => 'DE'],
         ];
 
         $this->assertEquals($expected, $array);
@@ -59,25 +56,23 @@ class SecciTest extends TestCase
     {
         $secci = new Secci();
 
-        $this->assertSame($secci, $secci->setPaymentMethod('INSTALLMENT'));
+        $this->assertSame($secci, $secci->setDeliveryMethod('PDF'));
     }
 
     public function testGetters()
     {
         $secci = (new Secci())
-            ->setPaymentMethod('INSTALLMENT')
             ->setDeliveryMethod('EMAIL')
             ->setEmail('test@example.com')
             ->setAction('REQUEST')
             ->setLanguage('DE')
-            ->setCountry('DE');
+            ->setCountryCode('DE');
 
-        $this->assertEquals('INSTALLMENT', $secci->getPaymentMethod());
         $this->assertEquals('EMAIL', $secci->getDeliveryMethod());
         $this->assertEquals('test@example.com', $secci->getEmail());
         $this->assertEquals('REQUEST', $secci->getAction());
         $this->assertEquals('DE', $secci->getLanguage());
-        $this->assertEquals('DE', $secci->getCountry());
+        $this->assertEquals('DE', $secci->getCountryCode());
     }
 
     public function testGetterReturnsNullIfNotSet()
@@ -87,13 +82,13 @@ class SecciTest extends TestCase
         $this->assertNull($secci->getEmail());
     }
 
-    public function testThrowErrorIfNoPaymentMethod()
+    public function testThrowErrorIfNoEmailAddress()
     {
         $secci = new Secci();
         $secci->setDeliveryMethod('EMAIL');
 
-        $this->expectException(ModelException::class);
-        $this->expectExceptionMessage('Model exception : Field \'PaymentMethod\' is required');
+        $this->expectException(RuleSetException::class);
+        $this->expectExceptionMessage('Rule set exception : email details missing');
 
         $secci->toArray();
     }
@@ -101,7 +96,7 @@ class SecciTest extends TestCase
     public function testThrowErrorIfNoDeliveryMethod()
     {
         $secci = new Secci();
-        $secci->setPaymentMethod('INSTALLMENT');
+        $secci->setCountryCode('DE');
 
         $this->expectException(ModelException::class);
         $this->expectExceptionMessage('Model exception : Field \'DeliveryMethod\' is required');
@@ -113,7 +108,6 @@ class SecciTest extends TestCase
     {
         $builder = new ModelBuilder('Secci');
         $builder->setArray([
-            'PaymentMethod' => 'INSTALLMENT',
             'DeliveryMethod' => 'EMAIL',
             'Email' => 'test@example.com',
         ]);
@@ -123,7 +117,6 @@ class SecciTest extends TestCase
         $this->assertInstanceOf(Secci::class, $secci);
 
         $expected = [
-            'payment-method' => ['value' => 'INSTALLMENT'],
             'delivery-method' => ['value' => 'EMAIL'],
             'email' => ['value' => 'test@example.com'],
         ];

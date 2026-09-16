@@ -54,7 +54,8 @@ class SecciRequest extends AbstractResponse
      */
     public function getDocument()
     {
-        return (key_exists('document', $this->result)) ? $this->result['document'] : null;
+        // Document variable comes as base64 encoded string!
+        return (key_exists('document', $this->result)) ? base64_decode($this->result['document']) : null;
     }
 
     /**

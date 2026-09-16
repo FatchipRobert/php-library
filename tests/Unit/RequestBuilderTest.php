@@ -296,7 +296,6 @@ class RequestBuilderTest extends IntegrationTestCase
         $content = new ModelBuilder('Content');
         $content->setArray([
             'Secci' => [
-                'PaymentMethod' => 'INSTALLMENT',
                 'DeliveryMethod' => 'EMAIL',
                 'Email' => 'test@example.com',
             ],
@@ -310,6 +309,6 @@ class RequestBuilderTest extends IntegrationTestCase
 
         $requestRaw = $builder->getRequestRaw();
         $this->assertStringContainsString('<operation>SECCI_REQUEST</operation>', $requestRaw);
-        $this->assertStringContainsString('<payment-method>INSTALLMENT</payment-method>', $requestRaw);
+        $this->assertStringContainsString('<delivery-method>EMAIL</delivery-method>', $requestRaw);
     }
 }

@@ -50,7 +50,7 @@ class SecciRequestTest extends TestCase
 
     public function testGetsSecciResultWithDocument()
     {
-        $document = '<document>JVBERi0xLjQK</document>
+        $document = '<document>'.base64_encode('JVBERi0xLjQK').'</document>
                         <content-type>application/pdf</content-type>';
         $xml = $this->getResponseXml('OK', 504, $document);
 

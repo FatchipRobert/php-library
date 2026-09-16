@@ -52,7 +52,6 @@ class SecciRequestTest extends TestCase
         $content = new ModelBuilder('Content');
         $content->setArray([
             'Secci' => [
-                'PaymentMethod' => 'INSTALLMENT',
                 'DeliveryMethod' => 'EMAIL',
                 'Email' => 'test@example.com',
             ],
@@ -70,7 +69,6 @@ class SecciRequestTest extends TestCase
 
         $expected = print_r([
             'secci' => [
-                'payment-method' => ['value' => 'INSTALLMENT'],
                 'delivery-method' => ['value' => 'EMAIL'],
                 'email' => ['value' => 'test@example.com'],
             ],
@@ -95,7 +93,6 @@ class SecciRequestTest extends TestCase
         $content = new ModelBuilder('Content');
         $content->setArray([
             'Secci' => [
-                'PaymentMethod' => 'INSTALLMENT',
                 'DeliveryMethod' => 'EMAIL',
             ],
         ]);

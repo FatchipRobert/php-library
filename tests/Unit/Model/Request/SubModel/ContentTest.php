@@ -27,8 +27,7 @@ class ContentTest extends TestCase
     public function testHandleSecci()
     {
         $secci = (new Secci())
-            ->setPaymentMethod('INSTALLMENT')
-            ->setDeliveryMethod('EMAIL');
+            ->setDeliveryMethod('PDF');
 
         $content = new Content();
         $content->setSecci($secci);
@@ -36,8 +35,7 @@ class ContentTest extends TestCase
         $array = $content->toArray();
 
         $expectedSecci = [
-            'payment-method' => ['value' => 'INSTALLMENT'],
-            'delivery-method' => ['value' => 'EMAIL'],
+            'delivery-method' => ['value' => 'PDF'],
         ];
 
         $this->assertEquals($expectedSecci, $array['secci']);
@@ -46,8 +44,7 @@ class ContentTest extends TestCase
     public function testGetSecci()
     {
         $secci = (new Secci())
-            ->setPaymentMethod('INSTALLMENT')
-            ->setDeliveryMethod('EMAIL');
+            ->setDeliveryMethod('PDF');
 
         $content = new Content();
         $content->setSecci($secci);
@@ -78,7 +75,6 @@ class ContentTest extends TestCase
         $builder = new ModelBuilder('Content');
         $builder->setArray([
             'Secci' => [
-                'PaymentMethod' => 'INSTALLMENT',
                 'DeliveryMethod' => 'EMAIL',
                 'Email' => 'test@example.com',
             ],
@@ -89,7 +85,6 @@ class ContentTest extends TestCase
         $this->assertInstanceOf(Secci::class, $content->getSecci());
 
         $expectedSecci = [
-            'payment-method' => ['value' => 'INSTALLMENT'],
             'delivery-method' => ['value' => 'EMAIL'],
             'email' => ['value' => 'test@example.com'],
         ];
