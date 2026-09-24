@@ -139,8 +139,8 @@ class Secci extends AbstractModel
      *
      * @throws \RatePAY\Exception\ModelException
      */
-    public function setCountry($country)
+    public function setCountryCode($country)
     {
-        return $this->__set('Country', $country);
+        return $this->__set('CountryCode', $country);
     }
 }
