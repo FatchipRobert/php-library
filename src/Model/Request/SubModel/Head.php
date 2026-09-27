@@ -23,6 +23,8 @@ use RatePAY\Model\Request\SubModel\Head\Meta;
  * @method string         getOperation()
  * @method $this          setSubtype(string $subType)
  * @method string         getSubtype()
+ * @method $this          setAttestationToken(string $attestationToken)
+ * @method string         getAttestationToken()
  * @method $this          setCredential(Credential $credential)
  * @method Credential     getCredential()
  * @method $this          setExternal(External $external)
