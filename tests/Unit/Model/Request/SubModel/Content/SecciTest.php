@@ -19,12 +19,14 @@ class SecciTest extends TestCase
     public function testToArrayWithMandatoryFields()
     {
         $secci = (new Secci())
-            ->setDeliveryMethod('PDF');
+            ->setDeliveryMethod('PDF')
+            ->setAction('PRINT');
 
         $array = $secci->toArray();
 
         $expected = [
             'delivery-method' => ['value' => 'PDF'],
+            'action' => ['value' => 'PRINT']
         ];
 
         $this->assertEquals($expected, $array);

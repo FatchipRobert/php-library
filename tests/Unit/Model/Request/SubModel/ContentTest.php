@@ -27,7 +27,8 @@ class ContentTest extends TestCase
     public function testHandleSecci()
     {
         $secci = (new Secci())
-            ->setDeliveryMethod('PDF');
+            ->setDeliveryMethod('PDF')
+            ->setAction('PRINT');
 
         $content = new Content();
         $content->setSecci($secci);
@@ -36,6 +37,7 @@ class ContentTest extends TestCase
 
         $expectedSecci = [
             'delivery-method' => ['value' => 'PDF'],
+            'action' => ['value' => 'PRINT']
         ];
 
         $this->assertEquals($expectedSecci, $array['secci']);

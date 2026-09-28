@@ -41,7 +41,7 @@ class Secci extends AbstractModel
             'mandatoryByRule' => true,
         ],
         'Action' => [
-            'mandatory' => false,
+            'mandatoryByRule' => true,
             'uppercase' => true,
         ],
         'Language' => [
@@ -65,6 +65,14 @@ class Secci extends AbstractModel
             (!key_exists('value', $this->admittedFields['Email']))
         ) {
             $this->setErrorMsg('email details missing');
+
+            return false;
+        }
+
+        if ('PDF' == $this->admittedFields['DeliveryMethod']['value'] &&
+            (!key_exists('value', $this->admittedFields['Action']) || strtoupper($this->admittedFields['Action']['value']) !== 'PRINT')
+        ) {
+            $this->setErrorMsg('action details missing or incorrect');
 
             return false;
         }
