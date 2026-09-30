@@ -70,7 +70,7 @@ class Secci extends AbstractModel
         }
 
         if ('PDF' == $this->admittedFields['DeliveryMethod']['value'] &&
-            (!key_exists('value', $this->admittedFields['Action']) || strtoupper($this->admittedFields['Action']['value']) !== 'PRINT')
+            (!key_exists('value', $this->admittedFields['Action']) || !in_array(strtoupper($this->admittedFields['Action']['value']), ['PRINT', 'DOWNLOAD']))
         ) {
             $this->setErrorMsg('action details missing or incorrect');
 
